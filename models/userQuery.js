@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
     lng:{
       type: DataTypes.FLOAT,
       allowNull: false,
-      len:[11];
+      len:[11]
     }
 
   });
