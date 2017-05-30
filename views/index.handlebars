@@ -1,0 +1,55 @@
+<div class="container" id="masthead">
+  <div class="row" id="cyberimage">
+    <img class="center-block" src="/../assets/img/cyber-cafe.jpg" style="max-height: 200px; width: 200px">
+  </div>
+</div>
+
+<div class="container">
+ 
+    <div class="row">
+      {{#each userQuery}}
+       
+        <div class="col-xs-9 text-center">
+            <pre>{{this.id}}. {{this.name}}</pre>
+            <pre>{{this.id}}. {{this.zipCode}}</pre>
+            <pre>{{this.id}}. {{this.city}}</pre>
+            <pre>{{this.id}}. {{this.cyberUrl}}</pre>
+            <pre>{{this.id}}. {{this.lat}}</pre>
+            <pre>{{this.id}}. {{this.lng}}</pre>
+        </div>
+          {{/each}}
+          	 <div class="col-xs-3 text-center">
+
+
+          	 </div>
+      </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 text-center enter_section">
+        <form action="/" method="POST">
+          <input type="textarea" name="name" id="cyberType">
+          <input type="textarea" name="zipCode" id="cyberType">
+          <input type="textarea" name="city" id="cyberType">
+          <input type="textarea" name="cyberUrl" id="cyberType">
+          <input type="textarea" name="lat" id="cyberType">
+          <input type="textarea" name="lng" id="cyberType">
+
+          <button type="submit" class="btn btn-primary">Submit</button>     
+        </form>
+
+        <br>
+       <p>Enter your cyberCafe info then click the "Submit" button</p>
+    </div>
+  </div>
+</div>
