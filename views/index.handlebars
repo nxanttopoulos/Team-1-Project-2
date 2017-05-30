@@ -3,37 +3,19 @@
     <img class="center-block" src="/../assets/img/cyber-cafe.jpg" style="max-height: 200px; width: 200px">
   </div>
 </div>
-
 <div class="container">
- 
-    <div class="row">
-      {{#each userQuery}}
-       
-        <div class="col-xs-9 text-center">
-            <pre>{{this.id}}. {{this.name}}</pre>
-            <pre>{{this.id}}. {{this.zipCode}}</pre>
-            <pre>{{this.id}}. {{this.city}}</pre>
-            <pre>{{this.id}}. {{this.cyberUrl}}</pre>
-            <pre>{{this.id}}. {{this.lat}}</pre>
-            <pre>{{this.id}}. {{this.lng}}</pre>
-        </div>
-          {{/each}}
-          	 <div class="col-xs-3 text-center">
-
-
-          	 </div>
-      </div>
+    <br>
+    <!--Jumbotron Title-->
+    <div class="jumbotron" style="background: linear-gradient(to bottom, slategrey, #aed4f8)">
+        <h1 class="text-center" style="font-size: 7em; color: silver"><strong>Find Your CybrSpot</strong></h1>
+        <h3 class="text-center" style="font-size: 3em; color: darkslategrey">Interwebs Cafe Finder</h3>
+    </div>
+    <!--Search Bar-->
+    <div class="input-group input-group-lg">
+        <input type="text" class="form-control" placeholder="City, State or zip code" aria-describedby="sizing-addon1" id="searchTextField">
+        <span class="input-group-addon"><a href="/" class="glyphicon glyphicon-search" id="sizing-addon1"></a></span>
+    </div>
 </div>
-
-
-
-
-
-
-
-
-
-
 <div class="container">
   <div class="row">
     <div class="col-xs-12 text-center enter_section">
@@ -44,12 +26,69 @@
           <input type="textarea" name="cyberUrl" id="cyberType">
           <input type="textarea" name="lat" id="cyberType">
           <input type="textarea" name="lng" id="cyberType">
-
           <button type="submit" class="btn btn-primary">Submit</button>     
         </form>
-
         <br>
        <p>Enter your cyberCafe info then click the "Submit" button</p>
     </div>
   </div>
 </div>
+<div class="container">
+    <div class="row">
+      {{#each userQuery}}
+        <div class="col-xs-9 text-center">
+            <pre>{{this.id}}. {{this.name}}</pre>
+            <pre>{{this.id}}. {{this.zipCode}}</pre>
+            <pre>{{this.id}}. {{this.city}}</pre>
+            <pre>{{this.id}}. {{this.cyberUrl}}</pre>
+            <pre>{{this.id}}. {{this.lat}}</pre>
+            <pre>{{this.id}}. {{this.lng}}</pre>
+        </div>
+          {{/each}}
+          	 <div class="col-xs-3 text-center">
+          	 </div>
+      </div>
+</div>
+<h3>Find Your Nearest Location Here:</h3>
+<div id="map"></div>
+<script type="text/javascript" src="assets/javascript/backstretch.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.backstretch('assets/images/cyber-cafe.jpeg');
+    });
+</script> 
+<script>
+  function initMap() {
+    var uluru = {lat: -25.363, lng: 131.044};
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: uluru
+    });
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+    });
+	var input = document.getElementById('searchTextField');
+	var options = {
+		componentRestrictions: {country: 'us'}
+	};
+	var autocomplete = new google.maps.places.Autocomplete(input, options);
+	google.maps.event.addListener(autocomplete, 'place_changed', function () {
+		var place = autocomplete.getPlace();
+		var lat = place.geometry.location.lat();
+		var long = place.geometry.location.lng();
+		var uluru = {lat:lat, lng: long};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+		});
+  }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?v3&callback=initMap&libraries=places">
+</script>

@@ -17,9 +17,6 @@
     "url": "https://github.com/nxanttopoulos/Team-1-Project-2/issues"
   },
   "homepage": "https://github.com/nxanttopoulos/Team-1-Project-2#readme",
-  
-
-
   "dependencies": {
    "express-handlebars": "^3.0.0",
     "body-parser": "^1.17.1",
@@ -30,7 +27,6 @@
     "sequelize": "^3.30.2"
   },
   "devDependencies": {
-
   "browserify": "^14.3.0",
     "chai": "^3.5.0",
     "karma": "^1.7.0",
@@ -40,13 +36,5 @@
     "karma-mocha-reporter": "^2.2.3",
     "mocha": "^3.4.1",
     "watchify": "^3.9.0"
-
-
-
-
-
-
-
-    
   }
 }
