@@ -56,8 +56,7 @@
     $(document).ready(function() {
         $.backstretch('assets/images/cyber-cafe.jpeg');
     });
-</script> 
-<script>
+    var locations = [];
   function initMap() {
     var uluru = {lat: -25.363, lng: 131.044};
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -79,14 +78,14 @@
 		var long = place.geometry.location.lng();
 		var uluru = {lat:lat, lng: long};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
+          zoom: 12,
           center: uluru
         });
         new google.maps.Marker({
           position: uluru,
           map: map
         });
-		});
+	});
   }
 </script>
 <script async defer
