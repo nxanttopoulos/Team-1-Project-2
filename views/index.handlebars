@@ -1,7 +1,5 @@
-<div class="container" id="masthead">
-  <div class="row" id="cyberimage">
-    <img class="center-block" src="/../assets/img/cyber-cafe.jpg" style="max-height: 200px; width: 200px">
-  </div>
+<div id="bg">
+	
 </div>
 <div class="container">
     <br>
@@ -12,20 +10,26 @@
     </div>
     <!--Search Bar-->
     <div class="input-group input-group-lg">
+    	<label for="searchTextField">Search for a Location:</label>
         <input type="text" class="form-control" placeholder="City, State or zip code" aria-describedby="sizing-addon1" id="searchTextField">
-        <span class="input-group-addon"><a href="/" class="glyphicon glyphicon-search" id="sizing-addon1"></a></span>
+        <span class="input-group-addon"><a href="/" class="glyphicon glyphicon-search"></a></span>
     </div>
 </div>
+<br>
+<br>
 <div class="container">
   <div class="row">
     <div class="col-xs-12 text-center enter_section">
+    	<label for="cyberType">Add a Wifi/Hotspot location to our database!</label>
         <form action="/" method="POST">
-          <input type="textarea" name="name" id="cyberType">
-          <input type="textarea" name="zipCode" id="cyberType">
-          <input type="textarea" name="city" id="cyberType">
-          <input type="textarea" name="cyberUrl" id="cyberType">
-          <input type="textarea" name="lat" id="cyberType">
-          <input type="textarea" name="lng" id="cyberType">
+          <input type="textarea" name="name" id="cyberType" placeholder="Name">
+          <input type="textarea" name="zipCode" id="cyberType" placeholder="Zip code">
+          <input type="textarea" name="city" id="cyberType" placeholder="City">
+          <input type="textarea" name="cyberUrl" id="cyberType" placeholder="Website URL">
+          <input type="textarea" name="lat" id="cyberType" placeholder="Latitude">
+          <input type="textarea" name="lng" id="cyberType" placeholder="Longitude">
+          <br>
+          <br>
           <button type="submit" class="btn btn-primary">Submit</button>     
         </form>
         <br>
@@ -33,30 +37,33 @@
     </div>
   </div>
 </div>
+<br>
+<br>
 <div class="container">
     <div class="row">
       {{#each userQuery}}
         <div class="col-xs-9 text-center">
-            <pre>{{this.id}}. {{this.name}}</pre>
-            <pre>{{this.id}}. {{this.zipCode}}</pre>
-            <pre>{{this.id}}. {{this.city}}</pre>
-            <pre>{{this.id}}. {{this.cyberUrl}}</pre>
-            <pre>{{this.id}}. {{this.lat}}</pre>
-            <pre>{{this.id}}. {{this.lng}}</pre>
+            <pre>{{this.id}}. {{this.name}} | {{this.zipCode}} | {{this.city}} | {{this.cyberUrl}} | {{this.lat}} | {{this.lng}}</pre>
         </div>
           {{/each}}
           	 <div class="col-xs-3 text-center">
           	 </div>
       </div>
 </div>
-<h3>Find Your Nearest Location Here:</h3>
+<br>
+<h3 class="text-center">Find Your Nearest Location Here:</h3>
+<br>
+<br>
 <div id="map"></div>
-<script type="text/javascript" src="assets/javascript/backstretch.js"></script>
+<br>
+<br>
 <script type="text/javascript">
     $(document).ready(function() {
-        $.backstretch('assets/images/cyber-cafe.jpeg');
-    });
-    var locations = [];
+    	var locations = [];
+    	{{#each userQuery}}
+    		locations.push([{{this.name}}, {{this.lat}}, {{this.lng}}]);
+    	{{/each}}
+    }); 
   function initMap() {
     var uluru = {lat: -25.363, lng: 131.044};
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -67,6 +74,7 @@
       position: uluru,
       map: map
     });
+    var infoWindow = new google.maps.InfoWindow();
 	var input = document.getElementById('searchTextField');
 	var options = {
 		componentRestrictions: {country: 'us'}
@@ -81,10 +89,19 @@
           zoom: 12,
           center: uluru
         });
-        new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
+        var marker;
+        for (var i = 0; i < locations.length; i++) {  
+      		marker = new google.maps.Marker({
+        	position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        	map: map
+      		});
+      		google.maps.event.addListener(marker, 'click', (function(marker, i) {
+	        	return function() {
+	          		infowindow.setContent(locations[i][0]);
+	          		infowindow.open(map, marker);
+	        	}
+      		})(marker, i));
+ 	 	}
 	});
   }
 </script>

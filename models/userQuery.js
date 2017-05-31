@@ -4,13 +4,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [5]
+        len: [11]
       }
     },
     zipCode: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      len: [5]
+      len: [11]
     },
     city: {
       type: DataTypes.STRING,
@@ -19,7 +19,6 @@ module.exports = function(sequelize, DataTypes) {
     cyberUrl: {
       type: DataTypes.STRING,
       allowNull: false
-
     },
     lat:{
       type: DataTypes.FLOAT,
@@ -32,7 +31,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       len:[11]
     }
-
   });
   return userQuery;
 };
