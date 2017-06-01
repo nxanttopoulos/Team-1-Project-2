@@ -52,67 +52,60 @@
 </div>
 <br>
 <div id="map"></div>
-<script type="text/javascript"> 
-    function initMap() {
-        var uluru = {lat: 38.907, lng: -77.037};
+<script type="text/javascript">
+function initMap() {
+        var locations = [
+      ['Peregrine Expresso', 38.8857, -76.9964],
+      ['Jacobs Coffee House', 38.8951, -76.9948],
+      ['Mias Coffehouse', 38.8912, -76.9833],
+      ['Mulebone', 38.9185, -77.0315],
+      ['Bourbon Coffee', 38.8851, -76.997600],
+      ['Peets Coffee & Tea', 38.9057, -76.997600],
+      ['Bakers and Baristas', 38.8966, -77.0217],
+      ['Tryst', 38.9221, -77.0421],
+      ['Pret A Manger', 38.8868, -77.0019],
+    ];
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 13,
+      center: new google.maps.LatLng(38.907,-77.037),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+    var input = document.getElementById('searchTextField');
+    var options = {
+	componentRestrictions: {country: 'us'}
+    };
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+	    var place = autocomplete.getPlace();
+	    var lat = place.geometry.location.lat();
+	    var long = place.geometry.location.lng();
+	    var uluru = {lat:lat, lng: long};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 13,
           center: uluru
         });
-        var marker = new google.maps.Marker({
+        if (place = "Washington, DC, United States") {
+        	for (i = 0; i < locations.length; i++) {  
+      			marker = new google.maps.Marker({
+        			position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+       				map: map
+      			});
+      			google.maps.event.addListener(marker, 'click', (function(marker, i) {
+       				return function() {
+          				infowindow.setContent(locations[i][0]);
+          				infowindow.open(map, marker);
+        			}
+     			})(marker, i));
+   			 }
+        }
+        new google.maps.Marker({
           position: uluru,
           map: map
         });
-	    var input = document.getElementById('searchTextField');
-	    var options = {
-		componentRestrictions: {country: 'us'}
-	    };
-	    var autocomplete = new google.maps.places.Autocomplete(input, options);
-	    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-		    var place = autocomplete.getPlace();
-		    var lat = place.geometry.location.lat();
-		    var long = place.geometry.location.lng();
-		    var uluru = {lat:lat, lng: long};
-	        var map = new google.maps.Map(document.getElementById('map'), {
-	          zoom: 13,
-	          center: uluru
-	        });
-	        new google.maps.Marker({
-	          position: uluru,
-	          map: map
-	        });
-   		});
-	    var infoWindow = new google.maps.InfoWindow();
-		var input = document.getElementById('searchTextField');
-		var options = {
-			componentRestrictions: {country: 'us'}
-		};
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		google.maps.event.addListener(autocomplete, 'place_changed', function () {
-			var place = autocomplete.getPlace();
-			var lat = place.geometry.location.lat();
-			var long = place.geometry.location.lng();
-			var uluru = {lat:lat, lng: long};
-	        var map = new google.maps.Map(document.getElementById('map'), {
-	          zoom: 12,
-	          center: uluru
-	        });
-	        var marker;
-	        for (var i = 0; i < locations.length; i++) {  
-	      		marker = new google.maps.Marker({
-	        	position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-	        	map: map
-	      		});
-	      		google.maps.event.addListener(marker, 'click', (function(marker, i) {
-		        	return function() {
-		          		infowindow.setContent(locations[i][0]);
-		          		infowindow.open(map, marker);
-		        	}
-	      		})(marker, i));
-	 	 	}
-		});
-	}
+	});
+}
 </script>
 <script async defer
-src="https://maps.googleapis.com/maps/api/js?v3&callback=initMap&libraries=places">
-</script>
+src="https://maps.googleapis.com/maps/api/js?v3&callback=initMap&libraries=places"></script>
