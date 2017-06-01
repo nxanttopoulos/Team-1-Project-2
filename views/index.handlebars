@@ -1,6 +1,4 @@
-<div id="bg">
-	
-</div>
+<div id="bg"></div>
 <div class="container">
     <br>
     <!--Jumbotron Title-->
@@ -10,9 +8,8 @@
     </div>
     <!--Search Bar-->
     <div class="input-group input-group-lg">
-    	<label for="searchTextField">Search for a Location:</label>
-        <input type="text" class="form-control" placeholder="City, State or zip code" aria-describedby="sizing-addon1" id="searchTextField">
-        <span class="input-group-addon"><a href="/" class="glyphicon glyphicon-search"></a></span>
+        <input type="text" style="color:black" class="form-control" placeholder="City, State or zip code" aria-describedby="sizing-addon1" id="searchTextField">
+        <span id="searchTextField" class="input-group-addon"><a href="/" class="glyphicon glyphicon-search"></a></span>
     </div>
 </div>
 <br>
@@ -21,7 +18,7 @@
   <div class="row">
     <div class="col-xs-12 text-center enter_section">
     	<label for="cyberType">Add a Wifi/Hotspot location to our database!</label>
-        <form action="/" method="POST">
+        <form action="/" method="POST" style="color:black">
           <input type="textarea" name="name" id="cyberType" placeholder="Name">
           <input type="textarea" name="zipCode" id="cyberType" placeholder="Zip code">
           <input type="textarea" name="city" id="cyberType" placeholder="City">
@@ -41,69 +38,80 @@
 <br>
 <div class="container">
     <div class="row">
-      {{#each userQuery}}
         <div class="col-xs-9 text-center">
-            <pre>{{this.id}}. {{this.name}} | {{this.zipCode}} | {{this.city}} | {{this.cyberUrl}} | {{this.lat}} | {{this.lng}}</pre>
-        </div>
-          {{/each}}
+        	<h4 class="task"> I.D.# | Name | Zipcode | City | Website | Latitude | Longitude </h4>
+		</div>
+		{{#each userQuery}}
+			<div class="col-xs-9 text-center">
+            	<pre>{{this.id}}. {{this.name}} | {{this.zipCode}} | {{this.city}} | {{this.cyberUrl}} | {{this.lat}} | {{this.lng}}</pre>
+        	</div>
+         {{/each}}
           	 <div class="col-xs-3 text-center">
           	 </div>
       </div>
 </div>
 <br>
-<h3 class="text-center">Find Your Nearest Location Here:</h3>
-<br>
-<br>
 <div id="map"></div>
-<br>
-<br>
-<script type="text/javascript">
-    $(document).ready(function() {
-    	var locations = [];
-    	{{#each userQuery}}
-    		locations.push([{{this.name}}, {{this.lat}}, {{this.lng}}]);
-    	{{/each}}
-    }); 
-  function initMap() {
-    var uluru = {lat: -25.363, lng: 131.044};
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-      center: uluru
-    });
-    var marker = new google.maps.Marker({
-      position: uluru,
-      map: map
-    });
-    var infoWindow = new google.maps.InfoWindow();
-	var input = document.getElementById('searchTextField');
-	var options = {
-		componentRestrictions: {country: 'us'}
-	};
-	var autocomplete = new google.maps.places.Autocomplete(input, options);
-	google.maps.event.addListener(autocomplete, 'place_changed', function () {
-		var place = autocomplete.getPlace();
-		var lat = place.geometry.location.lat();
-		var long = place.geometry.location.lng();
-		var uluru = {lat:lat, lng: long};
+<script type="text/javascript"> 
+    function initMap() {
+        var uluru = {lat: 38.907, lng: -77.037};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
+          zoom: 13,
           center: uluru
         });
-        var marker;
-        for (var i = 0; i < locations.length; i++) {  
-      		marker = new google.maps.Marker({
-        	position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-        	map: map
-      		});
-      		google.maps.event.addListener(marker, 'click', (function(marker, i) {
-	        	return function() {
-	          		infowindow.setContent(locations[i][0]);
-	          		infowindow.open(map, marker);
-	        	}
-      		})(marker, i));
- 	 	}
-	});
-  }
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+	    var input = document.getElementById('searchTextField');
+	    var options = {
+		componentRestrictions: {country: 'us'}
+	    };
+	    var autocomplete = new google.maps.places.Autocomplete(input, options);
+	    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+		    var place = autocomplete.getPlace();
+		    var lat = place.geometry.location.lat();
+		    var long = place.geometry.location.lng();
+		    var uluru = {lat:lat, lng: long};
+	        var map = new google.maps.Map(document.getElementById('map'), {
+	          zoom: 13,
+	          center: uluru
+	        });
+	        new google.maps.Marker({
+	          position: uluru,
+	          map: map
+	        });
+   		});
+	    var infoWindow = new google.maps.InfoWindow();
+		var input = document.getElementById('searchTextField');
+		var options = {
+			componentRestrictions: {country: 'us'}
+		};
+		var autocomplete = new google.maps.places.Autocomplete(input, options);
+		google.maps.event.addListener(autocomplete, 'place_changed', function () {
+			var place = autocomplete.getPlace();
+			var lat = place.geometry.location.lat();
+			var long = place.geometry.location.lng();
+			var uluru = {lat:lat, lng: long};
+	        var map = new google.maps.Map(document.getElementById('map'), {
+	          zoom: 12,
+	          center: uluru
+	        });
+	        var marker;
+	        for (var i = 0; i < locations.length; i++) {  
+	      		marker = new google.maps.Marker({
+	        	position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+	        	map: map
+	      		});
+	      		google.maps.event.addListener(marker, 'click', (function(marker, i) {
+		        	return function() {
+		          		infowindow.setContent(locations[i][0]);
+		          		infowindow.open(map, marker);
+		        	}
+	      		})(marker, i));
+	 	 	}
+		});
+	}
 </script>
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?v3&callback=initMap&libraries=places">

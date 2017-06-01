@@ -1,8 +1,11 @@
 h1 {
     text-shadow: 6px 2px black;
 }
+.task h4 {
+    color:white;
+}
 body, h3{
-    color:red;
+    color:white;
 }
 .jumbotron {
     z-index: 1;

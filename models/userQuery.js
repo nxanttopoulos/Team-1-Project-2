@@ -4,13 +4,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [11]
+        len: [3]
       }
     },
     zipCode: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      len: [11]
+      len: [3]
     },
     city: {
       type: DataTypes.STRING,
