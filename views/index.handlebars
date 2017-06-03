@@ -43,7 +43,7 @@
 		</div>
 		{{#each userQuery}}
 			<div class="col-xs-9 text-center">
-            	<pre>{{this.id}}. {{this.name}} | {{this.zipCode}} | {{this.city}} | {{this.cyberUrl}} | {{this.lat}} | {{this.lng}}</pre>
+            	<pre>{{this.id}}. {{this.name}} | {{this.zipCode}} | {{this.city}} | <a href="{{this.cyberUrl}}">{{this.cyberUrl}}</a> | {{this.lat}} | {{this.lng}}</pre>
         	</div>
          {{/each}}
           	 <div class="col-xs-3 text-center">
@@ -64,6 +64,14 @@ function initMap() {
       ['Bakers and Baristas', 38.8966, -77.0217],
       ['Tryst', 38.9221, -77.0421],
       ['Pret A Manger', 38.8868, -77.0019],
+      ['Bayou', 38.904299, -77.053839],
+      ['Port City Java', 38.892833, -76.995507],
+      ['Firehook Bakery & Coffeehouse', 38.898573, -77.015421],
+      ['Open City', 38.923874, -77.052339],
+      ['Rare Bird Coffee Roasters', 38.883629, -77.172605],
+      ['Peets Coffee', 38.885973, -77.094439],
+      ['Firehook Bakery & Coffeehouse', 38.935001, -77.057700],
+      ['Peregrine Espresso', 38.913452, -77.032196],
     ];
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 13,
